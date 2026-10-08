@@ -251,8 +251,7 @@
     @media (max-width: 860px) { .mentor { grid-template-columns: 1fr; padding: 24px; } .mentor-photo { max-width: 280px; } }
 
     /* Community */
-    .community { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; align-items: start; }
-    .community .side { display: grid; gap: 20px; }
+    .community { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
     .vid { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; }
     .vid .frame { position: relative; aspect-ratio: 16 / 9; background: #0b2a6f center / cover no-repeat; border: 0; padding: 0; width: 100%; cursor: pointer; display: block; }
     .vid .frame::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(11,23,51,.55)); }
@@ -687,25 +686,27 @@
     <div class="sec-head reveal">
       <span class="eyebrow">🌱 Open source &amp; community</span>
       <h2>Giving back to the <span class="grad">open-source community</span></h2>
-      <p>Parottasalna isn't just courses. We organise TOSSConf and free-software activities — hackathons, workshops and talks that bring the community together.</p>
+      <p>Parottasalna isn't just courses. We organise TOSSConf and free-software activities — hackathons, workshops and talks that bring the community together — and speak at community meetups.</p>
     </div>
     <div class="community">
       <article class="vid reveal">
         <button class="frame" type="button" data-src="https://www.youtube-nocookie.com/embed/GuvmuOk_qw4?autoplay=1" style="background-image:url('https://i.ytimg.com/vi/GuvmuOk_qw4/hqdefault.jpg')" aria-label="Play: Hackathon, Workshops &amp; Talks"><span class="play"></span></button>
         <div class="meta"><span>TOSSConf 2026</span><h3>Hackathon, Workshops &amp; Talks</h3><p>Moments from TOSSConf 2026 — a day of building, learning and sharing. <a href="https://www.youtube.com/watch?v=GuvmuOk_qw4" target="_blank" rel="noopener">Watch on YouTube ↗</a></p></div>
       </article>
-      <div class="side">
       <article class="vid reveal">
         <button class="frame" type="button" data-src="https://www.youtube-nocookie.com/embed/mEUs3RG6Yq0?autoplay=1" style="background-image:url('https://i.ytimg.com/vi/mEUs3RG6Yq0/hqdefault.jpg')" aria-label="Play: Moments from TOSSConf 2025"><span class="play"></span></button>
         <div class="meta"><span>TOSSConf 2025</span><h3>Moments from TOSSConf 2025</h3><p>Photos and highlights from the 2025 edition. <a href="https://www.youtube.com/watch?v=mEUs3RG6Yq0" target="_blank" rel="noopener">Watch on YouTube ↗</a></p></div>
       </article>
       <article class="vid reveal">
+        <button class="frame" type="button" data-src="https://www.youtube-nocookie.com/embed/7nQYUKG9oyM?autoplay=1" style="background-image:url('https://i.ytimg.com/vi/7nQYUKG9oyM/hqdefault.jpg')" aria-label="Play: RAG with Vector DB"><span class="play"></span></button>
+        <div class="meta"><span>Talk · Virudhunagar Techies</span><h3>RAG with Vector DB</h3><p>Syed's community talk on retrieval-augmented generation with vector databases. <a href="https://www.youtube.com/watch?v=7nQYUKG9oyM" target="_blank" rel="noopener">Watch on YouTube ↗</a></p></div>
+      </article>
+      <article class="vid reveal">
         <button class="frame" type="button" data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLT9Dl6cGjqVM&autoplay=1" style="background-image:url('https://i.ytimg.com/vi/GuvmuOk_qw4/hqdefault.jpg')" aria-label="Play: Freedom Software Activities"><span class="play"></span></button>
         <div class="meta"><span>Playlist</span><h3>Freedom Software Activities</h3><p>Talks, workshops and events from our free-software work. <a href="https://www.youtube.com/playlist?list=PLT9Dl6cGjqVM" target="_blank" rel="noopener">Watch on YouTube ↗</a></p></div>
       </article>
-      </div>
     </div>
-    <p class="organiser reveal">🎤 <span><b>Syed Jafer K</b> — organiser of TOSSConf 2025 &amp; 2026</span></p>
+    <p class="organiser reveal">🎤 <span><b>Syed Jafer K</b> — organiser of TOSSConf 2025 &amp; 2026 · community speaker</span></p>
   </div>
 </section>
 
