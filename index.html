@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parottasalna — Learn Backend, Cloud & AI in Tamil</title>
+  <meta name="description" content="Backend Engineering, System Design, AWS, Cloud, AI & DSA explained simply in Tamil. Affordable, practical courses by Syed Jafer K — 1000+ students trained.">
+  <meta name="theme-color" content="#1d4ed8">
+  <link rel="icon" href="favicon-48.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-soft: #f4f8ff;
+      --fg: #0b1733;
+      --muted: #55647f;
+      --line: #dfe7f5;
+      --card: #ffffff;
+      --blue-900: #0b2a6f;
+      --blue-700: #1d4ed8;
+      --blue-600: #2563eb;
+      --blue-400: #60a5fa;
+      --sky: #38bdf8;
+      --blue-50: #eaf2ff;
+      --ok: #16a34a;
+      --shadow: 0 1px 2px rgba(11, 23, 51, .05), 0 10px 30px rgba(37, 99, 235, .08);
+      --shadow-lg: 0 2px 6px rgba(11, 23, 51, .06), 0 24px 60px rgba(37, 99, 235, .16);
+      --radius: 18px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #07112a; --bg-soft: #0b1838; --fg: #e8eefc; --muted: #9aaacb; --line: #1c2c52;
+        --card: #0e1c40; --blue-50: #13285a; --blue-700: #60a5fa; --blue-600: #3b82f6;
+        --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.25);
+        --shadow-lg: 0 2px 6px rgba(0,0,0,.3), 0 24px 60px rgba(37,99,235,.25);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--fg);
+      font: 16px/1.65 "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    .ta { font-family: "Noto Sans Tamil", "Plus Jakarta Sans", sans-serif; }
+    a { color: var(--blue-600); text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    h1, h2, h3 { line-height: 1.15; letter-spacing: -0.02em; margin: 0; }
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+    section { padding: 88px 0; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem; padding: .35rem .85rem; border-radius: 999px;
+      background: var(--blue-50); color: var(--blue-700); font-weight: 700; font-size: .8rem; letter-spacing: .02em;
+      border: 1px solid color-mix(in srgb, var(--blue-600) 20%, transparent);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ok) 20%, transparent); }
+    .sec-head { text-align: center; max-width: 720px; margin: 0 auto 48px; }
+    .sec-head h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight: 800; margin-top: 14px; }
+    .sec-head p { color: var(--muted); margin: 14px 0 0; font-size: 1.05rem; }
+    .grad {
+      background: linear-gradient(90deg, var(--blue-700), var(--sky));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+      padding: .85rem 1.4rem; border-radius: 12px; font-weight: 700; font-size: .98rem;
+      border: 1px solid transparent; cursor: pointer; transition: transform .15s, box-shadow .15s, background .15s;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: linear-gradient(135deg, var(--blue-600), var(--blue-900)); color: #fff; box-shadow: 0 8px 24px rgba(37,99,235,.35); }
+    .btn-primary:hover { box-shadow: 0 12px 30px rgba(37,99,235,.45); }
+    .btn-ghost { background: var(--card); color: var(--fg); border-color: var(--line); }
+    .btn-ghost:hover { border-color: var(--blue-400); }
+    .btn-white { background: #fff; color: #0b2a6f; }
+
+    /* Nav */
+    .nav { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: saturate(160%) blur(12px); border-bottom: 1px solid var(--line); }
+    .nav-in { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 1rem; }
+    .brand { display: flex; align-items: center; gap: .6rem; font-weight: 800; color: var(--fg); font-size: 1.1rem; }
+    .brand img { width: 38px; height: 38px; border-radius: 50%; box-shadow: 0 4px 14px rgba(56,189,248,.45); }
+    .nav-links { display: flex; gap: 1.6rem; }
+    .nav-links a { color: var(--muted); font-weight: 600; font-size: .93rem; }
+    .nav-links a:hover { color: var(--blue-600); }
+    .nav .btn { padding: .6rem 1.1rem; font-size: .9rem; }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .menu-btn { display: none; width: 42px; height: 42px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--fg); cursor: pointer; place-items: center; }
+    .menu-btn svg { width: 20px; height: 20px; }
+    @media (max-width: 880px) {
+      .menu-btn { display: grid; }
+      .nav-links { display: none; position: absolute; top: 68px; left: 0; right: 0; flex-direction: column; gap: 0; padding: 8px 20px 16px;
+        background: var(--bg); border-bottom: 1px solid var(--line); box-shadow: 0 16px 30px rgba(11,23,51,.08); }
+      .nav.open .nav-links { display: flex; }
+      .nav-links a { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 1rem; color: var(--fg); }
+      .nav-links a:last-child { border-bottom: 0; }
+    }
+    @media (max-width: 400px) { .nav .btn { padding: .55rem .8rem; font-size: .85rem; } .brand { font-size: 1rem; } }
+
+    /* Hero */
+    .hero { position: relative; padding: 72px 0 80px; overflow: hidden; }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background:
+        radial-gradient(800px 420px at 85% -5%, color-mix(in srgb, var(--sky) 22%, transparent), transparent 65%),
+        radial-gradient(700px 400px at -10% 20%, color-mix(in srgb, var(--blue-600) 14%, transparent), transparent 60%),
+        linear-gradient(var(--bg-soft), var(--bg));
+    }
+    .hero::after {
+      content: ""; position: absolute; inset: 0; z-index: -1; opacity: .5;
+      background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; }
+    .hero h1 { font-size: clamp(2.3rem, 5.4vw, 4rem); font-weight: 800; margin-top: 20px; }
+    .hero .tamil { font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--blue-700); margin: 18px 0 0; font-weight: 700; }
+    .hero .lead { color: var(--muted); font-size: 1.1rem; margin: 14px 0 0; max-width: 560px; }
+    .chips { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; max-width: 560px; margin: 28px 0 0; }
+    .chip { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 10px 16px; box-shadow: var(--shadow); }
+    @media (max-width: 520px) { .chips { grid-template-columns: repeat(2, 1fr); } }
+    .chip b { display: block; font-size: 1.25rem; color: var(--fg); }
+    .chip span { font-size: .78rem; color: var(--muted); font-weight: 600; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .ticks { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 10px; }
+    .ticks li { display: flex; gap: 10px; align-items: flex-start; color: var(--fg); font-size: .97rem; }
+    .ticks svg { flex: none; margin-top: 4px; }
+
+    .hero-card { background: var(--card); border: 1px solid var(--line); border-radius: 24px; box-shadow: var(--shadow-lg); padding: 26px; position: relative; }
+    .hero-card .tag { position: absolute; top: -14px; right: 22px; background: linear-gradient(135deg, var(--blue-600), var(--sky)); color: #fff;
+      font-size: .75rem; font-weight: 800; padding: .35rem .8rem; border-radius: 999px; box-shadow: 0 6px 18px rgba(37,99,235,.35); }
+    .hero-card h3 { font-size: 1.15rem; }
+    .hero-card .sub { color: var(--muted); font-size: .9rem; margin: 4px 0 18px; }
+    .hero-card .kv { display: grid; gap: 10px; margin: 0; }
+    .hero-card .kv div { display: flex; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 12px; background: var(--bg-soft); border: 1px solid var(--line); font-size: .92rem; }
+    .hero-card .kv dt { color: var(--muted); font-weight: 600; }
+    .hero-card .kv dd { margin: 0; font-weight: 700; text-align: right; }
+    .hero-card .kv .hot dd { color: #b45309; }
+    .hero-card .tags { margin-top: 16px; }
+    .hero-card .soon { margin: 14px 0 0; font-size: .82rem; color: var(--muted); text-align: center; }
+    .oss { display: flex; gap: 12px; align-items: flex-start; margin: 18px 0 0; max-width: 560px; padding: 14px 16px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--blue-50), color-mix(in srgb, var(--sky) 12%, var(--card)));
+      border: 1px solid color-mix(in srgb, var(--blue-600) 25%, transparent); font-size: .95rem; }
+    .oss .ic { font-size: 1.3rem; line-height: 1.4; }
+    .oss b { color: var(--blue-700); }
+    .hero-card .btn { width: 100%; margin-top: 18px; }
+    @media (max-width: 920px) { .hero-grid { grid-template-columns: 1fr; } }
+
+    /* Stats band */
+    .band { background: linear-gradient(135deg, #0b2a6f 0%, #1d4ed8 55%, #0ea5e9 100%); color: #fff; padding: 48px 0; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
+    .stats b { display: block; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; }
+    .stats span { opacity: .85; font-size: .92rem; font-weight: 500; }
+    @media (max-width: 720px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+
+    /* Tracks */
+    .tracks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .track { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow);
+      transition: transform .2s, box-shadow .2s, border-color .2s; }
+    .track:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: color-mix(in srgb, var(--blue-600) 40%, var(--line)); }
+    .track .ic { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; font-size: 1.5rem;
+      background: linear-gradient(135deg, var(--blue-50), color-mix(in srgb, var(--sky) 18%, var(--card))); margin-bottom: 18px; }
+    .track h3 { font-size: 1.2rem; }
+    .track p { color: var(--muted); margin: 10px 0 14px; font-size: .95rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tags span { font-size: .74rem; font-weight: 700; color: var(--blue-700); background: var(--blue-50); padding: .25rem .6rem; border-radius: 999px; }
+    .track.feature { grid-row: span 1; background: linear-gradient(160deg, #0b2a6f, #1d4ed8); color: #fff; border: 0; }
+    .track.feature p { color: rgba(255,255,255,.82); }
+    .track.feature .ic { background: rgba(255,255,255,.14); }
+    .track.feature .tags span { background: rgba(255,255,255,.14); color: #fff; }
+    @media (max-width: 920px) { .tracks { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .tracks { grid-template-columns: 1fr; } }
+
+    /* Courses */
+    .soft { background: var(--bg-soft); }
+    .courses { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .course { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; }
+    .course .top { padding: 22px 22px 18px; background: linear-gradient(135deg, var(--blue-50), transparent); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .course .emoji { font-size: 1.8rem; }
+    .badge { font-size: .72rem; font-weight: 800; padding: .3rem .65rem; border-radius: 999px; }
+    .badge.free { background: color-mix(in srgb, var(--ok) 14%, transparent); color: var(--ok); }
+    .badge.pro { background: var(--blue-600); color: #fff; }
+    .course .body { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+    .course h3 { font-size: 1.1rem; }
+    .course p { color: var(--muted); font-size: .92rem; margin: 8px 0 16px; flex: 1; }
+    .course a.more { font-weight: 700; font-size: .92rem; }
+    @media (max-width: 1000px) { .courses { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .courses { grid-template-columns: 1fr; } }
+
+
+    /* Programs */
+    .programs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .program { background: var(--card); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; box-shadow: var(--shadow);
+      display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s; }
+    .program:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .program .head { padding: 24px 26px 22px; color: #fff; position: relative; overflow: hidden;
+      background: radial-gradient(400px 200px at 100% 0%, rgba(56,189,248,.55), transparent 60%), linear-gradient(135deg, #0b2a6f, #1d4ed8); }
+    .program .head .emoji { font-size: 2rem; line-height: 1; }
+    .program .head .kicker { display: inline-block; margin-top: 14px; font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
+    .program .head h3 { font-size: 1.35rem; margin-top: 4px; }
+    .program .head .live { position: absolute; top: 22px; right: 22px; font-size: .72rem; font-weight: 800; padding: .3rem .7rem; border-radius: 999px;
+      background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.28); }
+    .program .body { padding: 22px 26px 26px; display: flex; flex-direction: column; flex: 1; }
+    .program .body > p { color: var(--muted); margin: 0 0 16px; font-size: .95rem; }
+    .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+    .facts div { background: var(--bg-soft); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+    .facts small { display: block; font-size: .68rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    .facts b { font-size: .9rem; }
+    .program ul { list-style: none; padding: 0; margin: 0 0 18px; display: grid; gap: 7px; }
+    .program li { display: flex; gap: 9px; font-size: .93rem; }
+    .program li::before { content: "✓"; color: var(--blue-600); font-weight: 800; }
+    .program .tags { margin-bottom: 20px; }
+    .program .foot-row { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+      padding-top: 18px; border-top: 1px dashed var(--line); }
+    .program .cost { font-weight: 800; font-size: 1.35rem; }
+    .program .cost s { color: var(--muted); font-weight: 600; font-size: .95rem; margin-left: 6px; }
+    .program .cost small { display: block; font-size: .78rem; color: var(--muted); font-weight: 600; }
+    .offer { color: #b45309; }
+    .program.now { border: 2px solid var(--blue-600); box-shadow: var(--shadow-lg); }
+    .program .head .live.on { background: #16a34a; border-color: #16a34a; }
+    .program .head .live.busy { background: rgba(255,255,255,.1); }
+    .program.running .head { background: radial-gradient(400px 200px at 100% 0%, rgba(56,189,248,.35), transparent 60%), linear-gradient(135deg, #1e3a8a, #3b5bbf); }
+    @media (max-width: 920px) { .programs { grid-template-columns: 1fr; } }
+    @media (max-width: 460px) { .facts { grid-template-columns: 1fr 1fr; } }
+
+    /* Why */
+    .why { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .why-item { display: flex; gap: 18px; padding: 26px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--card); }
+    .why-item .num { flex: none; width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; font-weight: 800; color: #fff;
+      background: linear-gradient(135deg, var(--blue-600), var(--sky)); }
+    .why-item h3 { font-size: 1.1rem; }
+    .why-item p { color: var(--muted); margin: 8px 0 0; font-size: .95rem; }
+    @media (max-width: 720px) { .why { grid-template-columns: 1fr; } }
+
+    /* Instructor */
+    .mentor { display: grid; grid-template-columns: 340px 1fr; gap: 48px; align-items: center; background: var(--card); border: 1px solid var(--line);
+      border-radius: 28px; padding: 40px; box-shadow: var(--shadow-lg); }
+    .mentor-photo { aspect-ratio: 1; border-radius: 24px; background: linear-gradient(160deg, #0b2a6f, #2563eb 60%, #38bdf8); display: grid; place-items: center; position: relative; overflow: hidden; }
+    .mentor-photo img { width: 62%; border-radius: 50%; box-shadow: 0 0 0 8px rgba(255,255,255,.15); }
+    .mentor h3 { font-size: 1.8rem; }
+    .mentor .role { color: var(--blue-700); font-weight: 700; margin: 6px 0 16px; }
+    .mentor p { color: var(--muted); margin: 0 0 14px; }
+    .socials { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .socials a { display: inline-flex; align-items: center; gap: .45rem; padding: .55rem .95rem; border-radius: 10px; border: 1px solid var(--line);
+      color: var(--fg); font-weight: 600; font-size: .88rem; background: var(--bg-soft); }
+    .socials a:hover { border-color: var(--blue-400); color: var(--blue-600); }
+    @media (max-width: 860px) { .mentor { grid-template-columns: 1fr; padding: 24px; } .mentor-photo { max-width: 280px; } }
+
+    /* Community */
+    .community { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; align-items: start; }
+    .community .side { display: grid; gap: 20px; }
+    .vid { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; }
+    .vid .frame { position: relative; aspect-ratio: 16 / 9; background: #0b2a6f center / cover no-repeat; border: 0; padding: 0; width: 100%; cursor: pointer; display: block; }
+    .vid .frame::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(11,23,51,.55)); }
+    .vid .play { position: absolute; z-index: 1; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 68px; height: 48px; border-radius: 14px;
+      background: rgba(29,78,216,.92); display: grid; place-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.35); transition: transform .15s, background .15s; }
+    .vid .frame:hover .play { transform: translate(-50%, -50%) scale(1.08); background: #2563eb; }
+    .vid .play::before { content: ""; border-left: 18px solid #fff; border-top: 11px solid transparent; border-bottom: 11px solid transparent; margin-left: 4px; }
+    .vid iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .vid .meta { padding: 16px 20px 20px; }
+    .vid .meta span { font-size: .72rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--blue-700); }
+    .vid h3 { font-size: 1.08rem; margin-top: 4px; }
+    .vid p { color: var(--muted); font-size: .92rem; margin: 6px 0 0; }
+    .organiser { display: flex; align-items: center; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 28px; color: var(--muted); font-size: .95rem; }
+    .organiser b { color: var(--fg); }
+    @media (max-width: 860px) { .community { grid-template-columns: 1fr; } }
+
+    /* Outcomes */
+    .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .outcome { border-radius: var(--radius); padding: 22px; color: #fff; position: relative; overflow: hidden;
+      background: radial-gradient(300px 160px at 100% 0%, rgba(56,189,248,.45), transparent 60%), linear-gradient(150deg, #0b2a6f, #1d4ed8); }
+    .outcome .ico { font-size: 1.5rem; }
+    .outcome h3 { font-size: 1.1rem; margin: 10px 0 8px; line-height: 1.3; }
+    .outcome small { opacity: .8; font-size: .84rem; }
+    .outcome small b { opacity: 1; }
+    .outcome-note { text-align: center; color: var(--muted); font-size: .9rem; margin: 22px 0 0; }
+    @media (max-width: 920px) { .outcomes { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .outcomes { grid-template-columns: 1fr; } }
+
+    /* Reviews */
+    .score { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 620px; margin: 0 auto 36px; }
+    .score > div { text-align: center; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px 16px; }
+    .score b { display: block; font-size: 2rem; font-weight: 800; color: var(--blue-700); letter-spacing: -0.02em; line-height: 1.1; }
+    .score b span { font-size: 1rem; color: var(--muted); }
+    .score small { color: var(--muted); font-size: .84rem; }
+    .reviews { columns: 3 300px; column-gap: 20px; }
+    .review { break-inside: avoid; margin: 0 0 20px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
+    .review.more { display: none; }
+    .reviews.open .review.more { display: block; }
+    .course-tag { display: inline-block; font-size: .72rem; font-weight: 800; color: var(--blue-700); background: var(--blue-50); padding: .25rem .65rem; border-radius: 999px; }
+    .review blockquote { margin: 14px 0 18px; font-size: .96rem; position: relative; padding-left: 18px; border-left: 3px solid color-mix(in srgb, var(--blue-600) 35%, var(--line)); }
+    .who { display: flex; align-items: center; gap: 12px; }
+    .avatar { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: .85rem; color: #fff; background: linear-gradient(135deg, var(--blue-600), var(--sky)); flex: none; }
+    .who b { display: block; font-size: .93rem; }
+    .who small { color: var(--muted); }
+    .who .li { margin-left: auto; color: #0a66c2; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--line); }
+    .who .li:hover { border-color: #0a66c2; }
+    .more-row { text-align: center; margin-top: 8px; }
+    @media (max-width: 720px) { .score { grid-template-columns: 1fr; } }
+
+    /* FAQ */
+    .faq { max-width: 820px; margin: 0 auto; display: grid; gap: 12px; }
+    .faq details { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 4px 22px; }
+    .faq details[open] { border-color: color-mix(in srgb, var(--blue-600) 45%, var(--line)); box-shadow: var(--shadow); }
+    .faq summary { cursor: pointer; list-style: none; font-weight: 700; padding: 16px 0; display: flex; justify-content: space-between; gap: 12px; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after { content: "+"; color: var(--blue-600); font-size: 1.4rem; line-height: 1; transition: transform .2s; }
+    .faq details[open] summary::after { transform: rotate(45deg); }
+    .faq details p { color: var(--muted); margin: 0 0 18px; }
+
+    /* CTA */
+    .cta { border-radius: 28px; padding: 56px 40px; text-align: center; color: #fff; position: relative; overflow: hidden;
+      background: radial-gradient(600px 300px at 90% 0%, rgba(56,189,248,.5), transparent 60%), linear-gradient(135deg, #0b2a6f, #1d4ed8); }
+    .cta h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; }
+    .cta p { opacity: .88; max-width: 620px; margin: 14px auto 28px; font-size: 1.05rem; }
+    .cta .cta-row { justify-content: center; }
+    .cta .cta-mail { margin: 24px auto 0; font-size: .95rem; }
+    .cta .cta-mail a { color: #fff; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+    .cta .btn-ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.4); }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--line); padding: 48px 0 28px; margin-top: 88px; }
+    .foot { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 32px; }
+    .foot h4 { font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin: 0 0 12px; }
+    .foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .foot ul a { color: var(--fg); font-size: .93rem; }
+    .foot ul a:hover { color: var(--blue-600); }
+    .foot p { color: var(--muted); font-size: .93rem; max-width: 360px; }
+    .copy { border-top: 1px solid var(--line); margin-top: 32px; padding-top: 20px; color: var(--muted); font-size: .85rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    @media (max-width: 760px) { .foot { grid-template-columns: 1fr; } section { padding: 64px 0; } }
+
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top"><img src="logo-192.png" alt="">Parottasalna</a>
+    <nav class="nav-links" id="nav-links" aria-label="Primary">
+      <a href="#programs">Programs</a>
+      <a href="#courses">Free courses</a>
+      <a href="#why">Why us</a>
+      <a href="#mentor">Mentor</a>
+      <a href="#community">Community</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://learn.parottasalna.com/blog/">Blog</a>
+    </nav>
+    <div class="nav-right">
+      <a class="btn btn-primary" href="https://learn.parottasalna.com/">Start learning</a>
+      <button class="menu-btn" type="button" aria-label="Open menu" aria-controls="nav-links" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="dot"></span> Learn in Tamil · Open Source · Affordable</span>
+      <h1>Learn <span class="grad">Backend, Cloud &amp; AI</span><br>simply — in Tamil.</h1>
+      <p class="tamil ta">தமிழில் Backend, Cloud, AI மற்றும் Software Engineering கற்றுக்கொள்ளுங்கள்.</p>
+      <p class="lead">Backend Engineering, System Design, AWS, AI Agents, Data Engineering, Docker &amp; Kubernetes and DSA — explained the way a friend would explain it, using <strong>open-source tools</strong> and hands-on tasks that build real-world skills.</p>
+      <p class="oss"><span class="ic">🌱</span><span><b>Open source at heart.</b> Learn with the open-source tools the industry runs on — Linux, Python, PostgreSQL, Docker, Kubernetes, Airflow — and build in the open on <a href="https://github.com/syedjaferk/" target="_blank" rel="noopener">GitHub</a>. Organiser of <a href="#community">TOSSConf 2025 &amp; 2026</a>.</span></p>
+
+      <div class="chips">
+        <div class="chip"><b>1000+</b><span>Students trained</span></div>
+        <div class="chip"><b>4</b><span>Live programs</span></div>
+        <div class="chip"><b>100%</b><span>Tamil explanations</span></div>
+        <div class="chip"><b>Free</b><span>Starter courses</span></div>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#programs">Explore programs →</a>
+        <a class="btn btn-ghost" href="https://www.youtube.com/@parottasalnatech" target="_blank" rel="noopener">▶ Watch on YouTube</a>
+        <a class="btn btn-ghost" href="https://learn.parottasalna.com/blog/">📝 Read the blog</a>
+      </div>
+    </div>
+
+    <aside class="hero-card" aria-label="Now enrolling: End-to-End Data Engineering">
+      <span class="tag">● Now enrolling</span>
+      <h3>End-to-End Data Engineering</h3>
+      <p class="sub">Live in Tamil · Databricks certification prep</p>
+      <dl class="kv">
+        <div><dt>Starts</dt><dd>October 12</dd></div>
+        <div><dt>Duration</dt><dd>40 days</dd></div>
+        <div><dt>Live classes</dt><dd>Mon · Wed · Fri, 8–9 PM IST</dd></div>
+        <div><dt>Level</dt><dd>Beginner → Intermediate</dd></div>
+        <div class="hot"><dt>Offer</dt><dd>🔥 Half price · ends Oct 10</dd></div>
+      </dl>
+      <div class="tags"><span>Python</span><span>SQL</span><span>PySpark</span><span>Airflow</span><span>dbt</span><span>Databricks</span></div>
+      <a class="btn btn-primary" href="https://dataengineering.parottasalna.com/" target="_blank" rel="noopener">Reserve your seat →</a>
+      <p class="soon">AI Agents, AWS and Kubernetes cohorts are in progress.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<div class="band">
+  <div class="wrap stats">
+    <div><b>1000+</b><span>Students trained</span></div>
+    <div><b>4</b><span>Live cohort programs</span></div>
+    <div><b>Lifetime</b><span>Access to recordings</span></div>
+    <div><b>தமிழ்</b><span>Taught in Tamil</span></div>
+  </div>
+</div>
+
+<!-- ============ TRACKS ============ -->
+<section id="tracks">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">What you'll find here</span>
+      <h2>Six tracks. One goal — <span class="grad">real engineering skills</span>.</h2>
+      <p>Pick a track, or follow them in order. Every concept is explained simply in Tamil, with practical tasks you can put on your résumé.</p>
+    </div>
+    <div class="tracks">
+      <article class="track feature reveal">
+        <div class="ic">⚙️</div>
+        <h3>Backend Engineering &amp; System Design</h3>
+        <p>How real systems are built — APIs, databases, caching, queues, scaling and the trade-offs behind them.</p>
+        <div class="tags"><span>APIs</span><span>PostgreSQL</span><span>Caching</span><span>Scalability</span></div>
+      </article>
+      <article class="track reveal">
+        <div class="ic">☁️</div>
+        <h3>AWS &amp; Cloud</h3>
+        <p>From cloud fundamentals to certification preparation — VPC, IAM, EC2, S3, WAF and more.</p>
+        <div class="tags"><span>Fundamentals</span><span>Networking</span><span>Certification</span></div>
+      </article>
+      <article class="track reveal">
+        <div class="ic">🤖</div>
+        <h3>AI Engineering</h3>
+        <p>LLMs, RAG, AI agents and practical AI systems — build things that actually ship.</p>
+        <div class="tags"><span>LLMs</span><span>RAG</span><span>Agents</span></div>
+      </article>
+      <article class="track reveal">
+        <div class="ic">🧩</div>
+        <h3>DSA</h3>
+        <p>Patterns and problem-solving for technical interviews — understand the why, not just memorise answers.</p>
+        <div class="tags"><span>Patterns</span><span>Interviews</span><span>Problem solving</span></div>
+      </article>
+      <article class="track reveal">
+        <div class="ic">🐳</div>
+        <h3>Docker &amp; Kubernetes</h3>
+        <p>Containers, orchestration and DevOps fundamentals, taught through stories and hands-on labs.</p>
+        <div class="tags"><span>Containers</span><span>K8s</span><span>DevOps</span></div>
+      </article>
+      <article class="track reveal">
+        <div class="ic">📊</div>
+        <h3>Data Engineering</h3>
+        <p>Pipelines, warehousing and orchestration — Python, SQL, PySpark, Airflow, dbt and Databricks.</p>
+        <div class="tags"><span>PySpark</span><span>Airflow</span><span>Databricks</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROGRAMS ============ -->
+<section id="programs" class="soft">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow"><span class="dot"></span> Live cohort programs · Enrolling now: Data Engineering</span>
+      <h2>Go deep with a <span class="grad">live, mentor-led</span> program</h2>
+      <p>Data Engineering is open for enrollment and starts October 12. The AI Agents, AWS and Kubernetes cohorts are already in progress — explore their syllabus and follow our <a href="https://whatsapp.com/channel/0029Vavu8mF2v1IpaPd9np0s" target="_blank" rel="noopener">WhatsApp channel</a> to hear when the next batch opens.</p>
+    </div>
+    <div class="programs">
+
+      <article class="program now reveal">
+        <div class="head">
+          <span class="live on">● Enrolling now · Oct 12</span>
+          <div class="emoji">📊</div>
+          <span class="kicker">40 days · Databricks cert prep</span>
+          <h3>End-to-End Data Engineering</h3>
+        </div>
+        <div class="body">
+          <p>Master modern data pipelines, warehousing and orchestration, with a strong focus on the Databricks Data Engineer Associate exam.</p>
+          <div class="facts">
+            <div><small>Schedule</small><b>Mon · Wed · Fri</b></div>
+            <div><small>Time</small><b>8–9 PM IST</b></div>
+            <div><small>Level</small><b>Beginner → Inter.</b></div>
+          </div>
+          <ul>
+            <li>Python, SQL, data modeling &amp; cloud warehouses</li>
+            <li>Airflow, dbt, PySpark &amp; streaming with Kafka</li>
+            <li>Databricks Lakehouse, Delta Lake &amp; Unity Catalog</li>
+          </ul>
+          <div class="tags"><span>PySpark</span><span>Airflow</span><span>dbt</span><span>Databricks</span><span>Snowflake</span></div>
+          <div class="foot-row">
+            <!-- TODO: add price; offer ends Oct 10 -->
+            <div class="cost offer">Half-price offer<small>Ends October 10</small></div>
+            <a class="btn btn-primary" href="https://dataengineering.parottasalna.com/" target="_blank" rel="noopener">Reserve your seat →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="program running reveal">
+        <div class="head">
+          <span class="live busy">Batch in progress</span>
+          <div class="emoji">🤖</div>
+          <span class="kicker">Bootcamp · 12 modules</span>
+          <h3>AI Agent Engineering</h3>
+        </div>
+        <div class="body">
+          <p>Build production-ready AI agents from scratch — from LLM fundamentals to autonomous, multi-agent pipelines.</p>
+          <div class="facts">
+            <div><small>Schedule</small><b>Mon · Wed · Fri</b></div>
+            <div><small>Time</small><b>9–10 PM IST</b></div>
+            <div><small>Outcome</small><b>Deploy an agent</b></div>
+          </div>
+          <ul>
+            <li>Prompt engineering, tool calling &amp; memory</li>
+            <li>Advanced RAG, multi-agent systems &amp; MCP servers</li>
+            <li>FastAPI, Docker &amp; AWS deployment, evals &amp; tracing</li>
+          </ul>
+          <div class="tags"><span>LLMs</span><span>LangGraph</span><span>RAG</span><span>MCP</span><span>FastAPI</span></div>
+          <div class="foot-row">
+            <!-- TODO: add price -->
+            <div class="cost">Capstone project<small>Production-ready AI agent platform</small></div>
+            <a class="btn btn-ghost" href="https://aiagents.parottasalna.com/" target="_blank" rel="noopener">View syllabus →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="program running reveal">
+        <div class="head">
+          <span class="live busy">Batch in progress</span>
+          <div class="emoji">☁️</div>
+          <span class="kicker">90 hours · 6 months · SAA-C03</span>
+          <h3>AWS Architecture Masterclass</h3>
+        </div>
+        <div class="body">
+          <p>Go from “I know services” to designing scalable, fault-tolerant, production-grade systems — through live building and real-world debugging.</p>
+          <div class="facts">
+            <div><small>Schedule</small><b>Sat · Sun</b></div>
+            <div><small>Batches</small><b>Morning &amp; night</b></div>
+            <div><small>Level</small><b>No AWS needed</b></div>
+          </div>
+          <ul>
+            <li>12 modules: IAM, S3, EC2, VPC, databases, serverless &amp; more</li>
+            <li>6 full-length mock exams + module-wise tests</li>
+            <li>WhatsApp doubt group &amp; Google Classroom</li>
+          </ul>
+          <div class="tags"><span>VPC</span><span>EKS</span><span>Lambda</span><span>DynamoDB</span><span>Well-Architected</span></div>
+          <div class="foot-row">
+            <!-- TODO: add price -->
+            <div class="cost">Certification prep<small>AWS Solutions Architect Associate</small></div>
+            <a class="btn btn-ghost" href="https://aws.parottasalna.com/" target="_blank" rel="noopener">View syllabus →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="program running reveal">
+        <div class="head">
+          <span class="live busy">Batch in progress</span>
+          <div class="emoji">☸️</div>
+          <span class="kicker">50 sessions · 25 weeks</span>
+          <h3>Docker &amp; Kubernetes Systems Engineering</h3>
+        </div>
+        <div class="body">
+          <p>Docker internals, multi-stage builds, CNI networking, Gateway API, eBPF and production Kubernetes cluster operations.</p>
+          <div class="facts">
+            <div><small>Schedule</small><b>Tue · Thu</b></div>
+            <div><small>Time</small><b>9–10 PM IST</b></div>
+            <div><small>Outcome</small><b>Deploy an AI agent</b></div>
+          </div>
+          <ul>
+            <li>Namespaces, cgroups &amp; container runtime internals</li>
+            <li>Compose, security scanning &amp; observability</li>
+            <li>K8s architecture, Helm, HPA, Cilium/Calico &amp; cluster ops</li>
+          </ul>
+          <div class="tags"><span>Docker</span><span>Kubernetes</span><span>Helm</span><span>eBPF</span><span>Prometheus</span></div>
+          <div class="foot-row">
+            <div class="cost">₹3,000<s>₹6,000</s><small>Recordings + materials included</small></div>
+            <a class="btn btn-ghost" href="https://kubeengineering.parottasalna.com/" target="_blank" rel="noopener">View syllabus →</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ FREE COURSES ============ -->
+<section id="courses">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Free self-paced courses</span>
+      <h2>Not ready for a cohort? <span class="grad">Start free</span>.</h2>
+      <p>Sign in with Google and start learning. Track your progress and test yourself with quizzes after every module.</p>
+    </div>
+    <div class="courses">
+      <article class="course reveal">
+        <div class="top"><span class="emoji">🐘</span><span class="badge free">Free</span></div>
+        <div class="body">
+          <h3>Database Engineering with PostgreSQL</h3>
+          <p>Installation, roles, querying, filtering, ER diagrams and joins, with hands-on tasks on the DVD Rental database.</p>
+          <a class="more" href="https://learn.parottasalna.com/">Start free →</a>
+        </div>
+      </article>
+      <article class="course reveal">
+        <div class="top"><span class="emoji">🐳</span><span class="badge free">Free</span></div>
+        <div class="body">
+          <h3>Docker Mastery</h3>
+          <p>Containers through stories and labs: architecture, images, Dockerfiles, port mapping, volumes and practical tasks.</p>
+          <a class="more" href="https://learn.parottasalna.com/">Start free →</a>
+        </div>
+      </article>
+      <article class="course reveal">
+        <div class="top"><span class="emoji">🌿</span><span class="badge free">Free</span></div>
+        <div class="body">
+          <h3>Git &amp; Version Control</h3>
+          <p>Why version control matters, how Git came to be, setup, core terminology and hands-on exercises.</p>
+          <a class="more" href="https://learn.parottasalna.com/">Start free →</a>
+        </div>
+      </article>
+      <article class="course reveal">
+        <div class="top"><span class="emoji">🦗</span><span class="badge free">Free</span></div>
+        <div class="body">
+          <h3>Load Testing with Locust</h3>
+          <p>Users and tasks, wait times, events, response validation, step load and distributed load testing.</p>
+          <a class="more" href="https://learn.parottasalna.com/">Start free →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY ============ -->
+<section id="why" class="soft">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Why Parottasalna</span>
+      <h2>Why <span class="grad">1000+ students</span> learn with us</h2>
+      <p>Quality engineering education shouldn't be expensive or confusing. Here's what makes this different.</p>
+    </div>
+    <div class="why">
+      <div class="why-item reveal"><div class="num">01</div><div><h3>Explained simply, in Tamil</h3><p>Hard concepts broken down with everyday analogies — tea kadai, kitchens, bakeries — so they actually stick.</p></div></div>
+      <div class="why-item reveal"><div class="num">02</div><div><h3>Affordable by design</h3><p>Many courses are completely free. Paid programs are priced for students and early-career engineers, not corporate budgets.</p></div></div>
+      <div class="why-item reveal"><div class="num">03</div><div><h3>Practical over theory</h3><p>Every module ends with hands-on tasks and real code. You learn by building what's used in production.</p></div></div>
+      <div class="why-item reveal"><div class="num">04</div><div><h3>Live classes, lifetime recordings</h3><p>Evening live sessions that fit around work or college. Missed one? Recordings are shared daily and stay with you for life.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENTOR ============ -->
+<section id="mentor">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Meet your mentor</span>
+      <h2>Learn from someone who <span class="grad">builds this every day</span></h2>
+    </div>
+    <div class="mentor reveal">
+      <div class="mentor-photo"><img src="logo-192.png" alt="Syed Jafer K"></div>
+      <div>
+        <h3>Syed Jafer K</h3>
+        <div class="role">Founder, Parottasalna · Software Engineer &amp; Educator</div>
+        <p>Hi, I'm Syed Jafer K. I create practical, easy-to-understand content to help you learn software engineering and build real-world skills.</p>
+        <p>Through Parottasalna I've trained 1000+ students in backend engineering, AWS, Kubernetes, data engineering and AI — all in Tamil, and always with a focus on what you'll actually use at work.</p>
+        <p>Beyond teaching, I organise <b>TOSSConf</b> — 2025 and 2026 — and run free-software activities for the community, with hackathons, workshops and talks.</p>
+        <div class="socials">
+          <a href="https://learn.parottasalna.com/blog/">🌐 Blog</a>
+          <a href="https://www.youtube.com/@parottasalnatech" target="_blank" rel="noopener">▶ YouTube</a>
+          <a href="https://github.com/syedjaferk/" target="_blank" rel="noopener">💻 GitHub</a>
+          <a href="https://www.linkedin.com/in/syedjaferk" target="_blank" rel="noopener">💼 LinkedIn</a>
+          <a href="https://www.instagram.com/parottasalna.official/" target="_blank" rel="noopener">📸 Instagram</a>
+          <a href="https://whatsapp.com/channel/0029Vavu8mF2v1IpaPd9np0s" target="_blank" rel="noopener">💬 WhatsApp Channel</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMMUNITY ============ -->
+<section id="community" class="soft">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">🌱 Open source &amp; community</span>
+      <h2>Giving back to the <span class="grad">open-source community</span></h2>
+      <p>Parottasalna isn't just courses. We organise TOSSConf and free-software activities — hackathons, workshops and talks that bring the community together.</p>
+    </div>
+    <div class="community">
+      <article class="vid reveal">
+        <button class="frame" type="button" data-src="https://www.youtube-nocookie.com/embed/GuvmuOk_qw4?autoplay=1" style="background-image:url('https://i.ytimg.com/vi/GuvmuOk_qw4/hqdefault.jpg')" aria-label="Play: Hackathon, Workshops &amp; Talks"><span class="play"></span></button>
+        <div class="meta"><span>TOSSConf 2026</span><h3>Hackathon, Workshops &amp; Talks</h3><p>Moments from TOSSConf 2026 — a day of building, learning and sharing. <a href="https://www.youtube.com/watch?v=GuvmuOk_qw4" target="_blank" rel="noopener">Watch on YouTube ↗</a></p></div>
+      </article>
+      <div class="side">
+      <article class="vid reveal">
+        <button class="frame" type="button" data-src="https://www.youtube-nocookie.com/embed/mEUs3RG6Yq0?autoplay=1" style="background-image:url('https://i.ytimg.com/vi/mEUs3RG6Yq0/hqdefault.jpg')" aria-label="Play: Moments from TOSSConf 2025"><span class="play"></span></button>
+        <div class="meta"><span>TOSSConf 2025</span><h3>Moments from TOSSConf 2025</h3><p>Photos and highlights from the 2025 edition. <a href="https://www.youtube.com/watch?v=mEUs3RG6Yq0" target="_blank" rel="noopener">Watch on YouTube ↗</a></p></div>
+      </article>
+      <article class="vid reveal">
+        <button class="frame" type="button" data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLT9Dl6cGjqVM&autoplay=1" style="background-image:url('https://i.ytimg.com/vi/GuvmuOk_qw4/hqdefault.jpg')" aria-label="Play: Freedom Software Activities"><span class="play"></span></button>
+        <div class="meta"><span>Playlist</span><h3>Freedom Software Activities</h3><p>Talks, workshops and events from our free-software work. <a href="https://www.youtube.com/playlist?list=PLT9Dl6cGjqVM" target="_blank" rel="noopener">Watch on YouTube ↗</a></p></div>
+      </article>
+      </div>
+    </div>
+    <p class="organiser reveal">🎤 <span><b>Syed Jafer K</b> — organiser of TOSSConf 2025 &amp; 2026</span></p>
+  </div>
+</section>
+
+<!-- ============ OUTCOMES ============ -->
+<!-- Taken from what students reported in feedback forms. TODO: add placements / role changes / hikes when confirmed. -->
+<section id="outcomes">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Real results</span>
+      <h2>What students <span class="grad">walked away with</span></h2>
+      <p>In their own words, from our feedback forms.</p>
+    </div>
+    <div class="outcomes">
+      <div class="outcome reveal"><div class="ico">🔄</div><h3>Ready to move from an admin role into Docker work</h3><small><b>Sathish @ Bala</b> · Kubernetes</small></div>
+      <div class="outcome reveal"><div class="ico">🤖</div><h3>Built AI projects with LLMs, RAG, tool calling &amp; memory — ready for AI Engineer interviews</h3><small><b>Muruga Perumal</b> · AI Agent Builder</small></div>
+      <div class="outcome reveal"><div class="ico">🏗️</div><h3>Confident to crack system design interviews</h3><small><b>Prajin Kumar P</b> · System Design</small></div>
+      <div class="outcome reveal"><div class="ico">💼</div><h3>Applying the learnings at work “in a lot of ways”</h3><small><b>Gokul Kannan</b> · RAG</small></div>
+      <div class="outcome reveal"><div class="ico">🚀</div><h3>Built a real-world project to show in interviews</h3><small><b>Ezhilarasi A</b> · AI Agent Builder</small></div>
+      <div class="outcome reveal"><div class="ico">💡</div><h3>Gained the confidence to become a developer</h3><small><b>Arun Madhu</b> · Django</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<!-- Source: student feedback forms. Only responses that gave consent to share are shown, with names displayed as each student chose. -->
+<section id="reviews" class="soft">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Student reviews</span>
+      <h2>What our <span class="grad">students say</span></h2>
+      <p>In their own words — from students of our AI Agents, RAG, Kubernetes, System Design, Backend, Data Science and GenAI batches.</p>
+    </div>
+    <div class="score reveal">
+      <div><b>9.1<span>/10</span></b><small>Average “would you recommend us?” score from live-session students</small></div>
+      <div><b>100%</b><small>Said the fee was worth it in our GenAI, Backend, Data Science &amp; System Design surveys</small></div>
+    </div>
+    <div class="reviews" id="review-list">
+      <figure class="review">
+        <span class="course-tag">AI Agent Builder</span>
+        <blockquote>This course gave me a clear and practical understanding of Generative AI, LLMs, LangChain, RAG, tool calling, and AI Agents. The hands-on approach helped me understand how these concepts are used to build real-world AI applications and increased my confidence for AI Engineer interviews and projects.</blockquote>
+        <figcaption class="who"><div class="avatar">MP</div><div><b>Muruga Perumal</b><small>Working professional</small></div><a class="li" href="https://www.linkedin.com/in/muruga-perumal-iyadurai-7693592a7" target="_blank" rel="noopener" aria-label="Muruga Perumal on LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a></figcaption>
+      </figure>
+      <figure class="review">
+        <span class="course-tag">RAG</span>
+        <blockquote>The way you teach things from absolute scratch and not from an abstraction level really made me understand a lot of technical topics with much more depth. “I am able to explain why and how things work and know how to do it” — that would be the takeaway from the sessions.</blockquote>
+        <figcaption class="who"><div class="avatar">GK</div><div><b>Gokul Kannan</b><small>Working professional</small></div></figcaption>
+      </figure>
+      <figure class="review">
+        <span class="course-tag">40 Days of RAG</span>
+        <blockquote>This course provides a clear and practical understanding of RAG concepts, including embeddings, vector databases, chunking, retrieval, reranking, and RAG optimization techniques. The hands-on examples and doubt-clearing sessions helped me understand how to apply these concepts in my own projects.</blockquote>
+        <figcaption class="who"><div class="avatar">RP</div><div><b>Ramya Perumal</b><small>Job seeker</small></div></figcaption>
+      </figure>
+      <figure class="review">
+        <span class="course-tag">AI Agent Builder</span>
+        <blockquote>This course gave me a practical understanding of Agentic AI, including how to build AI agents, integrate tools and manage workflows. It strengthened my understanding of agent architecture and gave me more confidence in building real-world AI solutions.</blockquote>
+        <figcaption class="who"><div class="avatar">KM</div><div><b>Karthik Madhesh</b><small>Working professional</small></div></figcaption>
+      </figure>
+      <figure class="review">
+        <span class="course-tag">System Design</span>
+        <blockquote>I now have the confidence to crack system design interviews.</blockquote>
+        <figcaption class="who"><div class="avatar">PK</div><div><b>Prajin Kumar P</b><small>Student · SJIT HOPE</small></div></figcaption>
+      </figure>
+      <figure class="review">
+        <span class="course-tag">Kubernetes</span>
+        <blockquote>Concepts are explained in the simplest way to understand. Doubts are clearly explained on the spot until everyone understands the concept — very useful for preparing for interviews.</blockquote>
+        <figcaption class="who"><div class="avatar">H</div><div><b>Harini</b><small>Job seeker</small></div></figcaption>
+      </figure>
+      <figure class="review more">
+        <span class="course-tag">Kubernetes</span>
+        <blockquote>If you want to change your role with the current trend, he is the best — and you can learn in your mother tongue. I can now change my role and attend interviews confidently.</blockquote>
+        <figcaption class="who"><div class="avatar">SB</div><div><b>Sathish @ Bala</b><small>Working professional</small></div></figcaption>
+      </figure>
+      <figure class="review more">
+        <span class="course-tag">AI Agent Builder</span>
+        <blockquote>The topics were taught in Tamil and English, the teacher&#x27;s knowledge was in depth and I could understand them clearly. I learnt AI agent architecture from the bottom up — it will definitely help in interviews.</blockquote>
+        <figcaption class="who"><div class="avatar">KC</div><div><b>Krishnamurthy Chandrasekaran</b><small>Job seeker</small></div><a class="li" href="https://ca.linkedin.com/in/krishnamurthy-chandrasekaran" target="_blank" rel="noopener" aria-label="Krishnamurthy Chandrasekaran on LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a></figcaption>
+      </figure>
+      <figure class="review more">
+        <span class="course-tag">Django · Backend Mastery</span>
+        <blockquote>Clear explanation with simple examples and a practical approach to real-time issues. You can learn the basics very clearly and gain the confidence to be a developer.</blockquote>
+        <figcaption class="who"><div class="avatar">AM</div><div><b>Arun Madhu</b><small>Working professional</small></div><a class="li" href="https://www.linkedin.com/in/arunmadhuk/" target="_blank" rel="noopener" aria-label="Arun Madhu on LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a></figcaption>
+      </figure>
+      <figure class="review more">
+        <span class="course-tag">Backend Mastery</span>
+        <blockquote>The class was very informative and helped me fill gaps in my knowledge. I&#x27;m looking forward to applying these skills in my work.</blockquote>
+        <figcaption class="who"><div class="avatar">D</div><div><b>Deepa</b><small>Student</small></div></figcaption>
+      </figure>
+      <figure class="review more">
+        <span class="course-tag">Data Science</span>
+        <blockquote>Course contents are well structured and delivered with the best examples.</blockquote>
+        <figcaption class="who"><div class="avatar">MG</div><div><b>Manikandan Ganesan</b><small>Student</small></div></figcaption>
+      </figure>
+      <figure class="review more">
+        <span class="course-tag">30 Days of GenAI</span>
+        <blockquote>Prompt techniques, Ollama, the LangChain framework, memory optimisation, insights on RAG and vector databases, and automation tools like n8n. Overall it&#x27;s a good learning experience on using GenAI.</blockquote>
+        <figcaption class="who"><div class="avatar">VS</div><div><b>Vignesh S</b><small>Student</small></div></figcaption>
+      </figure>
+      <figure class="review more">
+        <span class="course-tag">AI Agent Builder</span>
+        <blockquote>It helped me a lot to learn about LLMs and Agentic AI, and I built a real-world project for interviews.</blockquote>
+        <figcaption class="who"><div class="avatar">EA</div><div><b>Ezhilarasi A</b><small>Working professional</small></div></figcaption>
+      </figure>
+      <figure class="review more">
+        <span class="course-tag">30 Days of GenAI</span>
+        <blockquote>After this session I am clear on AI concepts.</blockquote>
+        <figcaption class="who"><div class="avatar">S</div><div><b>Sadicbasha</b><small>Student</small></div></figcaption>
+      </figure>
+      <figure class="review more">
+        <span class="course-tag">Backend Mastery</span>
+        <blockquote>Improved my knowledge and confidence in the topic.</blockquote>
+        <figcaption class="who"><div class="avatar">MK</div><div><b>M K Rathish</b><small>Student</small></div></figcaption>
+      </figure>
+      <figure class="review more">
+        <span class="course-tag">AI Agent Builder</span>
+        <blockquote>Simplified teaching with live examples. Good job and keep it up!</blockquote>
+        <figcaption class="who"><div class="avatar">S</div><div><b>Sivakumar</b><small>Working professional</small></div></figcaption>
+      </figure>
+      <figure class="review more">
+        <span class="course-tag">AI Agent Builder</span>
+        <blockquote>Explanation in Tamil, with clarity. Good to get started, gain knowledge and make use of practical code.</blockquote>
+        <figcaption class="who"><div class="avatar">?</div><div><b>Anonymous</b><small>Student</small></div></figcaption>
+      </figure>
+      <figure class="review more">
+        <span class="course-tag">System Design</span>
+        <blockquote>I really got an idea of how to build a real system in an optimised, reliable and scalable way.</blockquote>
+        <figcaption class="who"><div class="avatar">SA</div><div><b>Shyamnath A B</b><small>Student · SJIT HOPE</small></div></figcaption>
+      </figure>
+      <figure class="review more">
+        <span class="course-tag">System Design</span>
+        <blockquote>Got an insightful overview of how to design a system and the various techniques that industries use to optimise things.</blockquote>
+        <figcaption class="who"><div class="avatar">JA</div><div><b>Jai Atithya A</b><small>Student · SJIT HOPE</small></div></figcaption>
+      </figure>
+      <figure class="review more">
+        <span class="course-tag">System Design</span>
+        <blockquote>I was able to understand system design concepts really well. I&#x27;m able to come up with ideas and ways through which I can design a system — API and queue concepts especially.</blockquote>
+        <figcaption class="who"><div class="avatar">RR</div><div><b>Rishwantthi Ramasamy</b><small>Student · SJIT HOPE</small></div></figcaption>
+      </figure>
+      <figure class="review more">
+        <span class="course-tag">System Design</span>
+        <blockquote>There is a lot of takeaway from the session, like the internal working of RabbitMQ and many new terms like the gossip protocol.</blockquote>
+        <figcaption class="who"><div class="avatar">AS</div><div><b>Ashwin S I</b><small>Student · SJIT HOPE</small></div></figcaption>
+      </figure>
+      <figure class="review more">
+        <span class="course-tag">System Design</span>
+        <blockquote>The key takeaway is to consider all the edge cases and scenarios that could arise while designing. Focus on design before implementation.</blockquote>
+        <figcaption class="who"><div class="avatar">ND</div><div><b>Niranjana Devi P C</b><small>Student · SJIT HOPE</small></div></figcaption>
+      </figure>
+      <figure class="review more">
+        <span class="course-tag">System Design</span>
+        <blockquote>Never stop learning at only one stack — go deep. I have understood the areas I&#x27;m lacking in and I&#x27;m motivated to improve on them.</blockquote>
+        <figcaption class="who"><div class="avatar">RD</div><div><b>Rishini Dharan T</b><small>Student · SJIT HOPE</small></div></figcaption>
+      </figure>
+    </div>
+    <div class="more-row"><button class="btn btn-ghost" id="more-reviews" type="button" aria-controls="review-list" aria-expanded="false">Show 17 more reviews</button></div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="soft">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Frequently asked <span class="grad">questions</span></h2>
+    </div>
+    <div class="faq">
+      <details class="reveal"><summary>Is everything taught in Tamil?</summary><p>Yes. Concepts are explained in Tamil so they're easy to understand. Code, commands and technical terms stay in English, exactly as you'll use them at work.</p></details>
+      <details class="reveal"><summary>Do I need prior experience?</summary><p>No. Courses start from the fundamentals and build up one idea at a time. If you're new, start with Git and Python, then move to databases and backend.</p></details>
+      <details class="reveal"><summary>Are the courses really free?</summary><p>Several self-paced courses — PostgreSQL, Docker, Git and Locust — are free forever. Sign in with Google and start right away. The live cohort programs are paid, at an affordable price.</p></details>
+      <details class="reveal"><summary>When are the live classes? What if I miss one?</summary><p>Classes run in the evening (IST) on weekdays, and on weekends for AWS, so they fit around work or college. Every session is recorded and shared the same day, and you keep lifetime access.</p></details>
+      <details class="reveal"><summary>Which program should I pick?</summary><p>Want to build with LLMs? Pick AI Agent Engineering. Aiming for cloud roles or the SAA-C03 certification? Pick AWS. Into DevOps and platforms? Pick Docker &amp; Kubernetes. Working with data? Pick Data Engineering. Not sure? Mail us at <a href="mailto:learnwithjafer@gmail.com">learnwithjafer@gmail.com</a> and we'll help you choose.</p></details>
+      <details class="reveal"><summary>How do I track my progress?</summary><p>Once you sign in, every course has progress tracking and quizzes, so you always know what's done and what's next.</p></details>
+      <details class="reveal"><summary>Will this help me get a job?</summary><p>The courses focus on practical skills used in real companies — backend, cloud, DevOps and AI. There are no placement guarantees; the skills and the hands-on work are what make the difference.</p></details>
+      <details class="reveal"><summary>How do I contact you?</summary><p>For any queries — courses, enrollment or payments — send a mail to <a href="mailto:learnwithjafer@gmail.com">learnwithjafer@gmail.com</a>. We'll get back to you.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<div class="wrap">
+  <div class="cta reveal">
+    <h2>Learn technology, simply — in Tamil. 🚀</h2>
+    <p>Join 1000+ students building real-world skills in backend, cloud, data and AI engineering.</p>
+    <div class="cta-row">
+      <a class="btn btn-white" href="https://dataengineering.parottasalna.com/" target="_blank" rel="noopener">Join Data Engineering — starts Oct 12</a>
+      <a class="btn btn-ghost" href="https://www.youtube.com/@parottasalnatech" target="_blank" rel="noopener">Subscribe on YouTube</a>
+      <a class="btn btn-ghost" href="https://whatsapp.com/channel/0029Vavu8mF2v1IpaPd9np0s" target="_blank" rel="noopener">Follow on WhatsApp</a>
+    </div>
+    <p class="cta-mail">Have questions? Mail us at <a href="mailto:learnwithjafer@gmail.com">learnwithjafer@gmail.com</a></p>
+  </div>
+</div>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="brand" href="#top"><img src="logo-192.png" alt="">Parottasalna</a>
+        <p>Backend Engineering, System Design, AWS, Cloud, AI &amp; DSA explained simply in Tamil.</p>
+        <p>For queries, mail us at<br><b><a href="mailto:learnwithjafer@gmail.com">learnwithjafer@gmail.com</a></b></p>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="https://aiagents.parottasalna.com/" target="_blank" rel="noopener">AI Agent Engineering</a></li>
+          <li><a href="https://aws.parottasalna.com/" target="_blank" rel="noopener">AWS Architecture</a></li>
+          <li><a href="https://kubeengineering.parottasalna.com/" target="_blank" rel="noopener">Docker &amp; Kubernetes</a></li>
+          <li><a href="https://dataengineering.parottasalna.com/" target="_blank" rel="noopener">Data Engineering</a></li>
+          <li><a href="#courses">Free courses</a></li>
+          <li><a href="https://learn.parottasalna.com/blog/">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://www.youtube.com/@parottasalnatech" target="_blank" rel="noopener">YouTube</a></li>
+          <li><a href="https://github.com/syedjaferk/" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/syedjaferk" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/parottasalna.official/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://t.me/parottasalna" target="_blank" rel="noopener">Telegram</a></li>
+          <li><a href="https://whatsapp.com/channel/0029Vavu8mF2v1IpaPd9np0s" target="_blank" rel="noopener">WhatsApp Channel</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copy"><span>© <span id="yr">2026</span> Parottasalna. All rights reserved.</span><span>Made with ❤️ in Tamil Nadu</span></div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("yr").textContent = new Date().getFullYear();
+  const io = "IntersectionObserver" in window && new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal").forEach((el) => io ? io.observe(el) : el.classList.add("in"));
+  const moreBtn = document.getElementById("more-reviews");
+  if (moreBtn) moreBtn.addEventListener("click", () => {
+    const list = document.getElementById("review-list");
+    const open = list.classList.toggle("open");
+    moreBtn.setAttribute("aria-expanded", open);
+    moreBtn.textContent = open ? "Show fewer reviews" : moreBtn.dataset.label;
+  });
+  if (moreBtn) moreBtn.dataset.label = moreBtn.textContent;
+  document.querySelectorAll(".vid .frame").forEach((btn) => btn.addEventListener("click", () => {
+    const f = document.createElement("iframe");
+    f.src = btn.dataset.src; f.title = btn.getAttribute("aria-label");
+    f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    f.allowFullscreen = true;
+    const box = document.createElement("div");
+    box.className = "frame";
+    box.appendChild(f);
+    btn.replaceWith(box);
+  }, { once: true }));
+  const nav = document.querySelector(".nav"), menuBtn = document.querySelector(".menu-btn");
+  menuBtn.addEventListener("click", () => {
+    const open = nav.classList.toggle("open");
+    menuBtn.setAttribute("aria-expanded", open);
+    menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  });
+  document.querySelectorAll(".nav-links a").forEach((a) => a.addEventListener("click", () => {
+    nav.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false");
+  }));
+</script>
+</body>
+</html>
