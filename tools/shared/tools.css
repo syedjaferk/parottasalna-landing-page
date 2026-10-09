@@ -45,6 +45,8 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .brand { display: flex; align-items: center; gap: .55rem; font-weight: 800; color: var(--fg); }
 .brand img { width: 32px; height: 32px; border-radius: 50%; }
 .crumb { color: var(--muted); font-weight: 600; font-size: .92rem; }
+.crumb a { color: var(--muted); }
+.crumb a:hover { color: var(--blue-600); }
 .topbar .spacer { flex: 1; }
 
 /* Buttons */
