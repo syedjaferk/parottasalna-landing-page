@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <script src="../../assets/js/analytics.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pomodoro Timer — Parottasalna Tools</title>
+  <meta name="description" content="A simple Pomodoro timer: 25-minute focus sessions with short and long breaks. Runs in your browser — settings and today's count are saved locally.">
+  <meta name="theme-color" content="#1d4ed8">
+  <link rel="icon" href="../../favicon-48.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/tools.css">
+  <link rel="stylesheet" href="pomodoro.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="../../"><img src="../../logo-192.png" alt="">Parottasalna</a>
+    <span class="crumb">/ <a href="../">Tools</a> / Pomodoro timer</span>
+    <span class="spacer"></span>
+    <a class="btn" href="../../">← Back to site</a>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div>
+    <h1 class="page-title">Pomodoro Timer</h1>
+    <p class="note">🔒 Settings and today's count are stored only in this browser.<span id="save-status" class="saved" aria-live="polite"></span></p>
+  </div>
+  <div class="actions">
+    <button id="open-settings" class="btn" type="button">⚙ Settings</button>
+    <div class="dropdown">
+      <button class="btn" type="button" aria-haspopup="menu" aria-expanded="false">Clear ▾</button>
+      <div class="menu" role="menu">
+        <button type="button" role="menuitem" class="danger" data-act="clear-today">Reset today's count</button>
+        <button type="button" role="menuitem" class="danger" data-act="reset-settings">Restore default settings</button>
+        <hr>
+        <button type="button" role="menuitem" class="danger" data-act="reset">Reset everything</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="storage-warning" class="warning" hidden>⚠ Your browser is blocking local storage (private mode or blocked site data). Settings and today's count won't be remembered.</div>
+
+<main class="pomo" id="pomo" data-mode="focus">
+  <div class="modes" role="tablist" aria-label="Timer mode">
+    <button type="button" role="tab" data-mode="focus">Focus</button>
+    <button type="button" role="tab" data-mode="short">Short break</button>
+    <button type="button" role="tab" data-mode="long">Long break</button>
+  </div>
+
+  <div class="dial" id="dial" style="--p:0">
+    <div class="dial-in">
+      <div class="time" id="time" role="timer" aria-live="off">25:00</div>
+      <div class="mode-label" id="mode-label">Time to focus</div>
+    </div>
+  </div>
+
+  <input id="task" class="task" type="text" maxlength="120" placeholder="What are you working on?" aria-label="What are you working on?" autocomplete="off">
+
+  <div class="controls">
+    <button id="reset" class="btn round" type="button" title="Restart this session" aria-label="Restart this session">↺</button>
+    <button id="start" class="btn btn-primary start" type="button">Start</button>
+    <button id="skip" class="btn round" type="button" title="Skip to the next session" aria-label="Skip to the next session">⏭</button>
+  </div>
+  <p class="hint">Press <kbd>Space</kbd> to start or pause</p>
+
+  <section class="today" aria-label="Today">
+    <div class="dots" id="dots" aria-label="Sessions until the long break"></div>
+    <p id="today-text">0 focus sessions today</p>
+  </section>
+</main>
+
+<dialog id="settings-dialog" aria-labelledby="settings-title">
+  <form method="dialog" id="settings-form">
+    <h2 id="settings-title">Settings</h2>
+    <div class="grid3">
+      <div class="field">
+        <label for="s-focus">Focus (min)</label>
+        <input id="s-focus" type="number" min="1" max="180" required>
+      </div>
+      <div class="field">
+        <label for="s-short">Short break</label>
+        <input id="s-short" type="number" min="1" max="60" required>
+      </div>
+      <div class="field">
+        <label for="s-long">Long break</label>
+        <input id="s-long" type="number" min="1" max="90" required>
+      </div>
+    </div>
+    <div class="field">
+      <label for="s-every">Long break after every</label>
+      <select id="s-every">
+        <option value="2">2 focus sessions</option>
+        <option value="3">3 focus sessions</option>
+        <option value="4">4 focus sessions</option>
+        <option value="5">5 focus sessions</option>
+        <option value="6">6 focus sessions</option>
+      </select>
+    </div>
+    <label class="switch"><input id="s-auto" type="checkbox"> Start the next session automatically</label>
+    <label class="switch"><input id="s-sound" type="checkbox"> Play a sound when a session ends</label>
+    <div class="notify-row">
+      <span id="notify-status">Desktop notifications are off.</span>
+      <button type="button" class="btn" id="notify-btn">Enable notifications</button>
+    </div>
+    <div class="dialog-actions">
+      <span class="spacer"></span>
+      <button type="button" class="btn" id="settings-cancel">Cancel</button>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="../shared/tools.js"></script>
+<script src="pomodoro.js"></script>
+</body>
+</html>

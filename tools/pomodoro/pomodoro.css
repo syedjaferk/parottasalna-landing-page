@@ -1,0 +1,47 @@
+/* Pomodoro timer styles; shared theme lives in ../shared/tools.css */
+.page-title { margin: 0; font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; }
+
+.pomo { --mode: var(--blue-600); width: 100%; max-width: 520px; margin: 0 auto; padding: 12px 16px 48px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.pomo[data-mode="short"] { --mode: #16a34a; }
+.pomo[data-mode="long"] { --mode: #0891b2; }
+
+.modes { display: inline-flex; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 4px; gap: 2px; box-shadow: var(--shadow); }
+.modes button { border: 0; background: none; padding: .5rem .9rem; border-radius: 9px; font-weight: 700; font-size: .9rem; color: var(--muted); cursor: pointer; }
+.modes button:hover { color: var(--fg); }
+.modes button[aria-selected="true"] { background: var(--mode); color: #fff; }
+
+.dial { --p: 0; width: min(300px, 78vw); aspect-ratio: 1; border-radius: 50%; margin: 28px 0 22px; display: grid; place-items: center;
+  background: conic-gradient(var(--mode) calc(var(--p) * 1%), color-mix(in srgb, var(--mode) 14%, var(--line)) 0);
+  box-shadow: var(--shadow-lg); transition: background .3s; }
+.dial-in { width: 86%; aspect-ratio: 1; border-radius: 50%; background: var(--card); display: grid; place-content: center; gap: 4px; }
+.time { font-size: clamp(3rem, 15vw, 4.4rem); font-weight: 800; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; line-height: 1; }
+.mode-label { color: var(--mode); font-weight: 700; font-size: .95rem; }
+
+.task { width: 100%; max-width: 380px; text-align: center; padding: .65rem .9rem; border-radius: 12px; border: 1px solid var(--line); background: var(--card); font-weight: 600; }
+.task:focus { outline: 2px solid color-mix(in srgb, var(--mode) 45%, transparent); outline-offset: 1px; }
+
+.controls { display: flex; align-items: center; gap: 14px; margin-top: 22px; }
+.controls .start { min-width: 150px; justify-content: center; padding: .9rem 1.4rem; font-size: 1.05rem; border-radius: 14px;
+  background: var(--mode); box-shadow: 0 8px 24px color-mix(in srgb, var(--mode) 35%, transparent); }
+.controls .round { width: 48px; height: 48px; justify-content: center; padding: 0; border-radius: 50%; font-size: 1.15rem; }
+.hint { margin: 12px 0 0; color: var(--muted); font-size: .8rem; }
+kbd { font: inherit; font-weight: 700; padding: .05rem .4rem; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; background: var(--card); }
+
+.today { margin-top: 30px; width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); }
+.today p { margin: 8px 0 0; color: var(--muted); font-weight: 600; font-size: .92rem; }
+.dots { display: flex; justify-content: center; gap: 8px; }
+.dots span { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--blue-600); }
+.dots span.on { background: var(--blue-600); }
+
+/* Settings dialog */
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.switch { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: .93rem; cursor: pointer; }
+.switch input { width: 18px; height: 18px; accent-color: var(--blue-600); }
+.notify-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 10px 12px; border-radius: 12px; background: var(--bg); font-size: .88rem; color: var(--muted); }
+
+@media (max-width: 640px) {
+  .page-title { font-size: 1.3rem; }
+  .modes button { padding: .5rem .65rem; font-size: .85rem; }
+  .hint { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .dial { transition: none; } }
