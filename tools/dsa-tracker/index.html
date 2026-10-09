@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DSA Tracker — Parottasalna Tools</title>
+  <meta name="description" content="Track your DSA practice by topic and by pattern — mark problems solved, bookmark them and keep notes. Progress is saved only in your browser.">
+  <meta name="theme-color" content="#1d4ed8">
+  <link rel="icon" href="../../favicon-48.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/tools.css">
+  <link rel="stylesheet" href="dsa-tracker.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="../../"><img src="../../logo-192.png" alt="">Parottasalna</a>
+    <span class="crumb">/ Tools / DSA tracker</span>
+    <span class="spacer"></span>
+    <a class="btn" href="../../">← Back to site</a>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div>
+    <h1 class="page-title"><a href="#/" id="home-link">DSA Tracker</a></h1>
+    <p class="note">🔒 Your progress is stored only in this browser (local storage) — nothing is sent to a server.<span id="save-status" class="saved" aria-live="polite"></span></p>
+  </div>
+  <div class="actions">
+    <input id="search" class="search" type="search" placeholder="Search problems…" aria-label="Search problems">
+    <button id="random" class="btn" type="button" title="Pick a random unsolved problem">🎲 Random</button>
+    <div class="dropdown">
+      <button class="btn" type="button" aria-haspopup="menu" aria-expanded="false">Data ▾</button>
+      <div class="menu" role="menu">
+        <button type="button" role="menuitem" data-act="export">⬇ Export progress (JSON)</button>
+        <button type="button" role="menuitem" data-act="import">⬆ Import progress (JSON)</button>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="btn" type="button" aria-haspopup="menu" aria-expanded="false">Clear ▾</button>
+      <div class="menu" role="menu">
+        <button type="button" role="menuitem" class="danger" data-act="clear-topic" id="clear-topic">Clear this topic or pattern</button>
+        <button type="button" role="menuitem" class="danger" data-act="clear-done">Clear all solved marks</button>
+        <button type="button" role="menuitem" class="danger" data-act="clear-bookmarks">Clear all bookmarks</button>
+        <button type="button" role="menuitem" class="danger" data-act="clear-notes">Clear all notes</button>
+        <hr>
+        <button type="button" role="menuitem" class="danger" data-act="reset">Reset everything</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="storage-warning" class="warning" hidden>⚠ Your browser is blocking local storage (private mode or blocked site data). Progress will be lost when you close this tab — use Data ▸ Export to keep a copy.</div>
+
+<main class="view" id="view" aria-live="polite"></main>
+
+<dialog id="note-dialog" aria-labelledby="note-title">
+  <form method="dialog" id="note-form">
+    <h2 id="note-title">Notes</h2>
+    <p id="note-sub"></p>
+    <div class="field">
+      <label for="note-text">Your notes</label>
+      <textarea id="note-text" maxlength="5000" placeholder="Approach, complexity, edge cases, what tripped you up…"></textarea>
+    </div>
+    <div class="dialog-actions">
+      <button type="button" class="btn btn-text" id="note-delete">🗑 Delete note</button>
+      <span class="spacer"></span>
+      <button type="button" class="btn" id="note-cancel">Cancel</button>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<input type="file" id="import-file" accept="application/json,.json" hidden>
+
+<script src="../shared/tools.js"></script>
+<script src="questions.js"></script>
+<script src="dsa-tracker.js"></script>
+</body>
+</html>

@@ -2,8 +2,7 @@
   "use strict";
   const KEY = "parottasalna.kanban.v1";
   const PRIORITIES = ["low", "medium", "high"];
-  const uid = () => (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2);
-  const $ = (sel, root = document) => root.querySelector(sel);
+  const { $, el, uid, store, showSaved, confirmBox, toast, closeMenus, downloadJSON, onJSONFile } = window.PTools;
 
   /* ---------- data ---------- */
   function defaultBoard() {
@@ -44,31 +43,9 @@
     };
   }
 
-  function readStored() {
-    try {
-      const raw = localStorage.getItem(KEY);
-      if (raw) return normalize(JSON.parse(raw));
-    } catch (e) { /* blocked or corrupt — fall back to a fresh board */ }
-    return null;
-  }
+  let board = normalize(store.read(KEY)) || defaultBoard();
 
-  let board = readStored() || defaultBoard();
-  let storageOK = true;
-  let statusTimer;
-
-  function save() {
-    try {
-      localStorage.setItem(KEY, JSON.stringify(board));
-      storageOK = true;
-      const s = $("#save-status");
-      s.textContent = "✓ Saved";
-      clearTimeout(statusTimer);
-      statusTimer = setTimeout(() => (s.textContent = ""), 1500);
-    } catch (e) {
-      storageOK = false;
-    }
-    $("#storage-warning").hidden = storageOK;
-  }
+  function save() { showSaved(store.write(KEY, board)); }
 
   const findCard = (id) => {
     for (const col of board.columns) {
@@ -94,17 +71,6 @@
   let focusAdder = false; // move focus into it on the next render only
   let query = "";
 
-  function el(tag, props = {}, ...children) {
-    const n = document.createElement(tag);
-    for (const [k, v] of Object.entries(props)) {
-      if (k === "class") n.className = v;
-      else if (k === "text") n.textContent = v;
-      else if (k.startsWith("data-") || k.startsWith("aria-") || k === "role") n.setAttribute(k, v);
-      else n[k] = v;
-    }
-    for (const c of children) if (c) n.append(c);
-    return n;
-  }
 
   const today = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
   const fmtDate = (s) => new Date(s + "T00:00:00").toLocaleDateString(undefined, { day: "numeric", month: "short" });
@@ -208,38 +174,6 @@
     if (input) { input.focus(); input.select(); }
   }
 
-  /* ---------- confirm + toast ---------- */
-  const confirmDlg = $("#confirm-dialog");
-  function confirmBox(title, msg, okLabel = "Confirm") {
-    $("#confirm-title").textContent = title;
-    $("#confirm-msg").textContent = msg;
-    $("#confirm-ok").textContent = okLabel;
-    confirmDlg.showModal();
-    return new Promise((resolve) => {
-      const done = (v) => { confirmDlg.close(); cleanup(); resolve(v); };
-      const ok = () => done(true), cancel = () => done(false), esc = (e) => { e.preventDefault(); done(false); };
-      const cleanup = () => { $("#confirm-ok").removeEventListener("click", ok); $("#confirm-cancel").removeEventListener("click", cancel); confirmDlg.removeEventListener("cancel", esc); };
-      $("#confirm-ok").addEventListener("click", ok);
-      $("#confirm-cancel").addEventListener("click", cancel);
-      confirmDlg.addEventListener("cancel", esc);
-    });
-  }
-
-  let toastTimer, undoFn = null;
-  function toast(msg, undo) {
-    $("#toast-msg").textContent = msg;
-    $("#toast-undo").hidden = !undo;
-    undoFn = undo || null;
-    $("#toast").classList.add("show");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => { $("#toast").classList.remove("show"); undoFn = null; }, 7000);
-  }
-  $("#toast-undo").addEventListener("click", () => {
-    if (undoFn) undoFn();
-    undoFn = null;
-    $("#toast").classList.remove("show");
-  });
-
   /* ---------- clear actions ---------- */
   async function clearColumn(col) {
     if (!col || !col.cards.length) return;
@@ -255,25 +189,18 @@
   async function resetBoard() {
     if (!(await confirmBox("Reset the whole board?", "This deletes every card, column and the board name from this browser and starts fresh. Export first if you want a backup.", "Reset board"))) return;
     commitWithUndo("Board reset", () => {
-      try { localStorage.removeItem(KEY); } catch (e) { /* ignore */ }
+      store.remove(KEY);
       board = defaultBoard();
     });
   }
 
   /* ---------- export / import ---------- */
   function exportBoard() {
-    const blob = new Blob([JSON.stringify(board, null, 2)], { type: "application/json" });
-    const a = el("a", { href: URL.createObjectURL(blob), download: (board.title || "kanban").replace(/[^\w-]+/g, "-").toLowerCase() + "-" + new Date().toISOString().slice(0, 10) + ".json" });
-    document.body.append(a); a.click(); a.remove();
-    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    downloadJSON(board, board.title || "kanban");
     toast("Board exported");
   }
-  $("#import-file").addEventListener("change", async (e) => {
-    const file = e.target.files[0];
-    e.target.value = "";
-    if (!file) return;
-    let next = null;
-    try { next = normalize(JSON.parse(await file.text())); } catch (err) { next = null; }
+  onJSONFile($("#import-file"), async (data) => {
+    const next = normalize(data);
     if (!next) { toast("That file isn't a valid Kanban export"); return; }
     if (!(await confirmBox("Replace this board?", `Import “${next.title}” with ${next.columns.length} columns? It replaces the current board.`, "Import"))) return;
     commitWithUndo("Board imported", () => (board = next));
@@ -384,27 +311,6 @@
   boardEl.addEventListener("dragend", () => {
     if (dragId) { dragId = null; placeholder.remove(); render(); }
   });
-
-  // Dropdown menus (toolbar + column menus)
-  function closeMenus(except) {
-    document.querySelectorAll(".dropdown.open").forEach((d) => {
-      if (d === except) return;
-      d.classList.remove("open");
-      d.querySelector(":scope > button")?.setAttribute("aria-expanded", "false");
-    });
-  }
-  document.addEventListener("click", (e) => {
-    const trigger = e.target.closest(".dropdown > button");
-    if (trigger) {
-      const dd = trigger.parentElement;
-      closeMenus(dd);
-      const open = dd.classList.toggle("open");
-      trigger.setAttribute("aria-expanded", open);
-      return;
-    }
-    if (!e.target.closest(".menu")) closeMenus();
-  });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMenus(); });
 
   document.querySelectorAll(".toolbar .menu").forEach((m) => m.addEventListener("click", (e) => {
     const b = e.target.closest("button");

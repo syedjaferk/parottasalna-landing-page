@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/tools.css">
   <link rel="stylesheet" href="kanban.css">
 </head>
 <body>
@@ -95,21 +96,9 @@
   </form>
 </dialog>
 
-<dialog id="confirm-dialog" aria-labelledby="confirm-title">
-  <form method="dialog">
-    <h2 id="confirm-title"></h2>
-    <p id="confirm-msg"></p>
-    <div class="dialog-actions">
-      <span class="spacer"></span>
-      <button type="button" class="btn" value="cancel" id="confirm-cancel">Cancel</button>
-      <button type="button" class="btn btn-danger" value="ok" id="confirm-ok">Confirm</button>
-    </div>
-  </form>
-</dialog>
-
-<div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-msg"></span><button type="button" id="toast-undo">Undo</button></div>
 <input type="file" id="import-file" accept="application/json,.json" hidden>
 
+<script src="../shared/tools.js"></script>
 <script src="kanban.js"></script>
 </body>
 </html>
