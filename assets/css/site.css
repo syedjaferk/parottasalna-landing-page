@@ -81,14 +81,13 @@ section { padding: 88px 0; }
 .drop-btn:hover, .nav-drop.open .drop-btn { color: var(--blue-600); }
 .drop-btn svg { width: 15px; height: 15px; transition: transform .15s; }
 .nav-drop.open .drop-btn svg { transform: rotate(180deg); }
-.drop-menu { display: none; position: absolute; right: -12px; top: calc(100% + 16px); min-width: 290px; padding: 8px; background: var(--card);
+.drop-menu { display: none; position: absolute; right: -12px; top: calc(100% + 16px); min-width: 200px; padding: 8px; background: var(--card);
   border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-lg); }
 .nav-drop.open .drop-menu { display: block; }
-.drop-menu a { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; border-radius: 10px; color: var(--fg); }
+.drop-menu a { display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 10px; color: var(--fg); }
 .drop-menu a:hover { background: var(--blue-50); }
 .drop-menu .ic { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--blue-50); flex: none; font-size: 1.1rem; }
 .drop-menu b { display: block; font-size: .93rem; }
-.drop-menu small { color: var(--muted); font-size: .8rem; font-weight: 500; }
 .menu-btn { display: none; width: 42px; height: 42px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--fg); cursor: pointer; place-items: center; }
 .menu-btn svg { width: 20px; height: 20px; }
 @media (max-width: 880px) {
