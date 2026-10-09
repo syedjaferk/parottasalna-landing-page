@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kanban Board — Parottasalna Tools</title>
+  <meta name="description" content="A free, private Kanban board that runs in your browser. Everything is saved in your browser's local storage — no sign-up, no server.">
+  <meta name="theme-color" content="#1d4ed8">
+  <link rel="icon" href="../../favicon-48.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="kanban.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="../../"><img src="../../logo-192.png" alt="">Parottasalna</a>
+    <span class="crumb">/ Tools / Kanban board</span>
+    <span class="spacer"></span>
+    <a class="btn" href="../../">← Back to site</a>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div>
+    <input id="board-title" class="board-title" aria-label="Board name" maxlength="80" spellcheck="false">
+    <p class="note">🔒 Stored only in this browser (local storage) — nothing is sent to a server.<span id="save-status" class="saved" aria-live="polite"></span></p>
+  </div>
+  <div class="actions">
+    <input id="search" class="search" type="search" placeholder="Search cards…" aria-label="Search cards">
+    <button id="add-column" class="btn" type="button">+ Column</button>
+    <div class="dropdown">
+      <button class="btn" type="button" aria-haspopup="menu" aria-expanded="false">Data ▾</button>
+      <div class="menu" role="menu">
+        <button type="button" role="menuitem" data-act="export">⬇ Export board (JSON)</button>
+        <button type="button" role="menuitem" data-act="import">⬆ Import board (JSON)</button>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="btn" type="button" aria-haspopup="menu" aria-expanded="false">Clear ▾</button>
+      <div class="menu" role="menu" id="clear-menu">
+        <div class="label">Clear cards in a column</div>
+        <div id="clear-cols"></div>
+        <hr>
+        <button type="button" role="menuitem" class="danger" data-act="clear-cards">Clear all cards (keep columns)</button>
+        <button type="button" role="menuitem" class="danger" data-act="reset">Reset board — delete everything</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="storage-warning" class="warning" hidden>⚠ Your browser is blocking local storage (private mode or blocked site data). Changes will be lost when you close this tab — use Data ▸ Export to keep a copy.</div>
+
+<main class="board" id="board" aria-label="Kanban board"></main>
+
+<dialog id="card-dialog" aria-labelledby="card-dialog-title">
+  <form method="dialog" id="card-form">
+    <h2 id="card-dialog-title">Edit card</h2>
+    <div class="field">
+      <label for="f-title">Title</label>
+      <input id="f-title" required maxlength="200" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="f-desc">Description</label>
+      <textarea id="f-desc" maxlength="5000" placeholder="Add more details…"></textarea>
+    </div>
+    <div class="grid3">
+      <div class="field">
+        <label for="f-priority">Priority</label>
+        <select id="f-priority">
+          <option value="">None</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-due">Due date</label>
+        <input id="f-due" type="date">
+      </div>
+      <div class="field">
+        <label for="f-col">Column</label>
+        <select id="f-col"></select>
+      </div>
+    </div>
+    <p class="meta-line" id="f-created"></p>
+    <div class="dialog-actions">
+      <button type="button" class="btn btn-text" id="card-delete">🗑 Delete</button>
+      <span class="spacer"></span>
+      <button type="button" class="btn" id="card-cancel">Cancel</button>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="confirm-dialog" aria-labelledby="confirm-title">
+  <form method="dialog">
+    <h2 id="confirm-title"></h2>
+    <p id="confirm-msg"></p>
+    <div class="dialog-actions">
+      <span class="spacer"></span>
+      <button type="button" class="btn" value="cancel" id="confirm-cancel">Cancel</button>
+      <button type="button" class="btn btn-danger" value="ok" id="confirm-ok">Confirm</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-msg"></span><button type="button" id="toast-undo">Undo</button></div>
+<input type="file" id="import-file" accept="application/json,.json" hidden>
+
+<script src="kanban.js"></script>
+</body>
+</html>
