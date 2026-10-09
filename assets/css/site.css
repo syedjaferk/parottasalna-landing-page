@@ -269,6 +269,16 @@ section { padding: 88px 0; }
 .vid .meta span { font-size: .72rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--blue-700); }
 .vid h3 { font-size: 1.08rem; margin-top: 4px; }
 .vid p { color: var(--muted); font-size: .92rem; margin: 6px 0 0; }
+.oss-projects { margin-top: 28px; text-align: center; }
+.oss-label { margin: 0 0 12px; font-weight: 700; color: var(--muted); font-size: .92rem; }
+.oss-links { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; max-width: 820px; margin: 0 auto; text-align: left; }
+.oss-links a { display: flex; gap: 12px; align-items: center; padding: 14px 16px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); color: var(--fg); box-shadow: var(--shadow); transition: border-color .15s, transform .15s; }
+.oss-links a:hover { border-color: var(--blue-400); transform: translateY(-2px); }
+.oss-links .ic { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--blue-50); font-size: 1.2rem; flex: none; }
+.oss-links b { display: block; }
+.oss-links b::after { content: " ↗"; color: var(--muted); font-weight: 600; }
+.oss-links small { color: var(--muted); font-size: .84rem; }
+@media (max-width: 640px) { .oss-links { grid-template-columns: 1fr; } }
 .organiser { display: flex; align-items: center; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 28px; color: var(--muted); font-size: .95rem; }
 .organiser b { color: var(--fg); }
 @media (max-width: 860px) { .community { grid-template-columns: 1fr; } }
